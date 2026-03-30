@@ -1,0 +1,74 @@
+# =========================
+# .NET Build Artifacts
+# =========================
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider / VSCode / VS
+.vs/
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# =========================
+# ASP.NET / Config
+# =========================
+appsettings.Development.json
+appsettings.Local.json
+
+# Environment variables
+.env
+
+# =========================
+# Entity Framework
+# =========================
+Migrations/*Designer.cs
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+
+# Ignore local volumes data (if mapped)
+**/pgdata/
+**/postgres_data/
+
+# =========================
+# Node (if frontend later)
+# =========================
+node_modules/
+npm-debug.log
+
+# =========================
+# Test Results
+# =========================
+TestResults/
+
+# =========================
+# Coverage
+# =========================
+coverage/
+*.coverage
+*.coveragexml
+
+# =========================
+# Secrets
+# =========================
+secrets.json
+*.pfx
+*.key
