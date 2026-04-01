@@ -1,15 +1,20 @@
 ﻿using OrderService.DTOs;
+using OrderService.Messaging;
 using OrderService.Models;
 using OrderService.Repositories;
+using Shared;
 
 namespace OrderService.Services
 {
     public class OrderServiceImpl : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
-        public OrderServiceImpl(IOrderRepository orderRepository)
+        private readonly IEventPublisher _publisher;
+
+        public OrderServiceImpl(IOrderRepository orderRepository, IEventPublisher publisher)
         {
             _orderRepository = orderRepository;
+            _publisher = publisher;
         }
 
         public async Task<OrderResponse> CreateOrder(OrderRequest orderRequest) 
@@ -21,6 +26,15 @@ namespace OrderService.Services
             };
 
             var createdOrder = await _orderRepository.AddOrderAsync(order);
+
+            var evt = new OrderCreatedEvent
+            {
+                OrderId = order.Id,
+                ProductId = order.ProductId,
+                Quantity = order.Quantity
+            };
+
+            _publisher.PublishOrderCreated(evt);
 
             return new OrderResponse
             {
