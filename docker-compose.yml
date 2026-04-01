@@ -1,6 +1,8 @@
+version: "3.9"
+
 services:
 
-  order-postgres:
+  orders-postgres:
     image: postgres:16
     container_name: orders-postgres
     environment:
@@ -10,7 +12,19 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - order_data:/var/lib/postgresql/data
+      - orders_postgres_data:/var/lib/postgresql/data
+
+  inventory-postgres:
+    image: postgres:16
+    container_name: inventory-postgres
+    environment:
+      POSTGRES_DB: inventory_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - inventory_postgres_data:/var/lib/postgresql/data
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -20,4 +34,5 @@ services:
       - "15672:15672"
 
 volumes:
-  order_data:
+  orders_postgres_data:
+  inventory_postgres_data:
